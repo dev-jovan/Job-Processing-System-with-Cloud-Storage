@@ -1,0 +1,16 @@
+<div class="job-processor-container">
+  <h1>Digi-Sapiens Job Processor</h1>
+
+  <!-- Upload Section -->
+  <section class="card">
+    <h2>📤 Upload CSV</h2>
+    <input type="file" (change)="onFileChange($event)" />
+    <button [disabled]="!selectedFile" (click)="uploadFile()">Upload File</button>
+  </section>
+
+
+  
+
+
+
+  

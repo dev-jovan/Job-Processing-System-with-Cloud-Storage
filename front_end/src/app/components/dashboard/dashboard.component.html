@@ -1,0 +1,19 @@
+<!-- Header -->
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+    <h1>Digi-Sapiens Job Processor</h1>
+    <div *ngIf="username">
+      Logged in as <strong>{{ username }}</strong>
+      <button (click)="logout()" style="margin-left: 10px;">Logout</button>
+    </div>
+  </header>
+  
+  <hr />
+  
+  <!-- Main Content -->
+  <main style="padding: 1rem;">
+    <h2 style="text-align: center;">Digi-Sapiens Job Processor</h2>
+    <app-file-upload (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+    <app-job-submit [fileId]="fileId"></app-job-submit>
+    <app-job-status></app-job-status>
+  </main>
+  

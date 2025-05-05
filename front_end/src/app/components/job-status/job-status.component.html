@@ -1,0 +1,44 @@
+<!-- Job Status Dashboard -->
+<section class="card">
+  <h2>📊 Submitted Jobs</h2>
+
+  <table *ngIf="jobs.length > 0" class="job-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Result</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobs">
+        <td>{{ job.id }}</td>
+        <td>{{ job.job_name}}</td>
+        <td>
+          <span [ngClass]="{
+            'failed' : job.status === 'Failed',
+            'pending': job.status === 'Pending',
+            'processing': job.status === 'Processing',
+            'completed': job.status === 'Completed'
+          }">
+            {{ job.status }}
+          </span>
+        </td>
+        <td>
+          <a *ngIf="job.result_url" [href]="job.result_url" target="_blank">View Result</a>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button *ngIf="job.status === 'Failed'" class="retry-btn" (click)="refreshJob(job.id)">🔄 Retry</button>
+            <button (click)="deleteJob(job.id)">❌ Delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="jobs.length === 0">No jobs submitted yet.</p>
+</section>
+  

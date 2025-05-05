@@ -1,0 +1,17 @@
+CREATE TABLE jobs (
+    id SERIAL PRIMARY KEY,
+    file_id VARCHAR(255) UNIQUE NOT NULL,
+    job_name VARCHAR(255),
+    status VARCHAR(50),
+    result_url VARCHAR(255),
+    user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR NOT NULL,
+    hashed_password VARCHAR NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

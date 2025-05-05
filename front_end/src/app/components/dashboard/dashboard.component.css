@@ -1,0 +1,9 @@
+header {
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+  }

@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # MinIO for file storage
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+    ports:
+      - "9000:9000"
+    volumes:
+      - minio-data:/data
+    command: server /data
+    restart: always
+
+  # Backend (FastAPI)
+  backend:
+    build:
+      context: ./back_end  # Path to your backend Dockerfile directory
+    ports:
+      - "8000:8000"  # Expose backend on port 8000
+    environment:
+      - MINIO_ENDPOINT=minio:9000  # Use MinIO service within Docker
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+    depends_on:
+      - minio
+    restart: always
+
+  # Frontend (Angular)
+  frontend:
+    build:
+      context: ./front_end  # Path to your frontend Dockerfile directory
+    ports:
+      - "4200:80"  # Expose frontend (Angular app) on port 4200
+    depends_on:
+      - backend
+    restart: always
+
+  # Airflow
+  # airflow:
+  #   build:
+  #     context: ./airflow  # Path to your Airflow Dockerfile directory
+  #   ports:
+  #     - "8080:8080"  # Expose Airflow UI on port 8080
+  #   volumes:
+  #     - ./airflow/dags:/opt/airflow/dags
+  #   environment:
+  #     - AIRFLOW_HOME=/opt/airflow
+  #   depends_on:
+  #     - minio
+  #   restart: always
+
+volumes:
+  minio-data:
+    driver: local

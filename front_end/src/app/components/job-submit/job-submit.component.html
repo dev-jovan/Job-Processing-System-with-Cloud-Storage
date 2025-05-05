@@ -1,0 +1,20 @@
+<!-- Submit Section -->
+<section class="card">
+  <h2>📝 Submit Job</h2>
+
+  <div class="form-row">
+    <input
+      type="text"
+      [(ngModel)]="jobName"
+      placeholder="Enter job name"
+      [disabled]="submitting"
+    />
+
+    <button
+      [disabled]="!fileId || !jobName || submitting"
+      (click)="submitJob()"
+    >
+      {{ submitting ? 'Submitting...' : 'Submit Job' }}
+    </button>
+  </div>
+</section>

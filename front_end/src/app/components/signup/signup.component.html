@@ -1,0 +1,8 @@
+<div class="signup-form">
+    <h2>Sign Up</h2>
+    <input [(ngModel)]="username" placeholder="Username" />
+    <input [(ngModel)]="password" type="password" placeholder="Password" />
+    <input [(ngModel)]="confirmPassword" type="password" placeholder="Confirm Password" />
+    <button (click)="signup()">Register</button>
+    <p *ngIf="error" class="error">{{ error }}</p>
+  </div>
